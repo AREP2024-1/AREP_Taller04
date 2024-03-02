@@ -1,0 +1,36 @@
+h1{
+    background-color: rgb(172, 90, 227);
+    text-align: center;
+}
+
+.numeros{
+    margin-top: 3%;
+    position: absolute;
+    left: 500px;
+}
+
+
+button{
+    margin-top: 10%;
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+    border-bottom-left-radius: 10px;
+    border-bottom-right-radius: 10px;
+    width: 50px;
+    height: 30px;
+    position: relative;
+    left: 470px;
+    background-color: rgb(179, 178, 178);
+}
+
+section{
+    position: absolute;
+    left: 530px;
+
+}
+
+img{
+    position: absolute;
+    left: 1100px;
+    width: 350px;
+}
