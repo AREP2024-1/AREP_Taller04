@@ -5,6 +5,7 @@ import java.io.FileNotFoundException;
 import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
+import java.util.Arrays;
 import java.util.function.BiFunction;
 
 import edu.eci.arep.ASE.app.model.Registry;
@@ -62,9 +63,9 @@ public class Scanner {
 
         }else{
             String nombreArchivo = archivoRaiz.getAbsolutePath();
-            String classpath = System.getProperty("java.class.path");
+            String  name = obtenerNombreClase(nombreArchivo);
 
-            Class clase = Class.forName(obtenerNombreClase(nombreArchivo, classpath));
+            Class clase = Class.forName(name);
 
             try{
                 registrarMetodo(clase);
@@ -110,10 +111,21 @@ public class Scanner {
         } 
     }
 
-    private String obtenerNombreClase(String rutaArchivo, String rutaClase) {
-        String separar = File.separator;
-        String relativePath = rutaArchivo.substring(rutaClase.length() + 1);
-        return relativePath.replace(separar, ".").replace(".class", "");
+    private String obtenerNombreClase(String rutaArchivo) {
+        String separar = File.separator.replace("\\","\\\\");
+        String[] partes = rutaArchivo.split(separar);
+
+        int index = 0;
+        boolean encontrado = false;
+        while(index<partes.length && !encontrado){
+            if(partes[index].equals("target") && (index+1 < partes.length && partes[index+1].equals("classes"))){
+                    encontrado = true;
+                    index++;
+            }
+            index++;
+        }
+
+        return String.join(".", Arrays.copyOfRange(partes, index, partes.length)).replace(".class","");
     }
     
 }
